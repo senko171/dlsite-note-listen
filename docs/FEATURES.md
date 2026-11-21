@@ -2,7 +2,7 @@
 
 ## 自动更新提醒
 
-与优惠助手 dlsite-best-deal 同一套机制，用户无需手动 reinstall：
+用户无需手动 reinstall：
 
 - 脚本每 6 小时检查一次最新版本；成功才记时间，失败下次打开页面再试。
 - 版本源两个：GitHub API `releases/latest` 和 jsDelivr `resolved`，取两者中较大的版本号，避免单一源缓存到旧版造成误判或漏报。
