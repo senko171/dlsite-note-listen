@@ -10,7 +10,7 @@
 
 **[安装 DLsite 备注 & 试听 v0.0.1](https://cdn.jsdelivr.net/gh/senko171/dlsite-note-listen@v0.0.1/userscript/dlsite-note-listen.user.js)**&#8203;
 
-目前仅支持安卓Via这种支持 `.user.js` 的手机浏览器，可直接打开上面这条安装链接。
+需要浏览器装有 Tampermonkey 或 Violentmonkey 插件，如Via这种支持 `.user.js` 的手机浏览器。目前仅支持安卓，可直接打开上面这条安装链接。
 
 关于更新：
 - **脚本自己会提醒**：每 6 小时检查一次 GitHub 最新版本（同时查 GitHub API 和 jsDelivr，取较新的那个，避免缓存误判）。真有新版时，页面右下角会出现一条可关闭的提示「有新版本 vX.Y.Z（当前 vX.Y.Z）」，点「去更新」即可安装到钉死版本的地址；点 `×` 关闭后这个版本不再重复提示。想立刻检查，在任意`备注`弹窗的`备份 / 恢复`区点「检查更新」。
