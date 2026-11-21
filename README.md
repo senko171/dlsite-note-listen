@@ -8,7 +8,7 @@
 
 ## 安装
 
-**[安装 DLsite 备注 & 试听 v0.0.1](https://github.com/senko171/dlsite-note-listen/releases/download/v0.0.1/dlsite-note-listen.user.js)**
+**[安装 DLsite 备注 & 试听 v0.0.1](https://cdn.jsdelivr.net/gh/senko171/dlsite-note-listen@v0.0.1/userscript/dlsite-note-listen.user.js)**&#8203;
 
 目前仅支持安卓Via这种支持 `.user.js` 的手机浏览器，可直接打开上面这条安装链接。
 
