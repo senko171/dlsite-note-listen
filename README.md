@@ -1,0 +1,91 @@
+# DLsite 备注 & 试听
+
+在 DLsite 的作品详情、搜索、分类、收藏夹、购物车和推荐卡上，为每部作品补上`备注`和`试听`两个小按钮：备注写在本地、试听状态一点即切换，同一作品的不同语言版本共享同一份数据；换设备时用文件导出 / 导入即可完整备份恢复。
+
+按钮外观对齐 [jiangdaolia/dlsite-best-deal](https://github.com/jiangdaolia/dlsite-best-deal) 优惠助手的 `browse-analysis-frame` 规格，装了优惠券插件也能整齐排在同一行。本项目零外部依赖、MIT 许可证，作者：泫恰松鼠鱼。
+
+## 安装
+
+**[安装 DLsite 备注 & 试听 v0.0.1](https://github.com/senko171/dlsite-note-listen/releases/download/v0.0.1/dlsite-note-listen.user.js)**
+
+上面这条是 GitHub Releases 的 v0.0.1 固定附件地址，内容钉死在这个版本、不会变，也不依赖 `@latest` 的 tag 解析缓存。桌面端可使用 Tampermonkey、Violentmonkey 等用户脚本管理器；Via 等支持 `.user.js` 的手机浏览器可直接打开安装链接。
+
+装完之后基本不用再管更新，有两条路同时生效：
+
+- **脚本自己会提醒**：每 6 小时检查一次 GitHub 最新版本（同时查 GitHub API 和 jsDelivr，取较新的那个，避免缓存误判）。真有新版时，页面右下角会出现一条可关闭的提示「有新版本 vX.Y.Z（当前 vX.Y.Z）」，点「去更新」即可安装到钉死版本的地址；点 `×` 关闭后这个版本不再重复提示。想立刻检查，在任意`备注`弹窗的`备份 / 恢复`区点「检查更新」。
+- **脚本管理器也能升级**：脚本的更新地址是 GitHub 官方的**最新 release 附件永久地址**（`releases/latest/download/...`，内容永远指向最新一版），在 Tampermonkey / Violentmonkey 里点「检查更新」即可就地升级，不依赖 `@latest` 的解析缓存。
+
+本脚本不读取账号信息；自动检查只有版本提示，不会联网同步你的备注数据。
+
+打不开时的备用入口（任选其一）：
+
+- jsDelivr 跟随最新 tag（可能滞后几版）：`https://cdn.jsdelivr.net/gh/senko171/dlsite-note-listen@latest/userscript/dlsite-note-listen.user.js`
+- Releases 固定版本附件：`https://github.com/senko171/dlsite-note-listen/releases/download/v0.0.1/dlsite-note-listen.user.js`
+- raw 直连（少数网络可用）：`https://raw.githubusercontent.com/senko171/dlsite-note-listen/main/userscript/dlsite-note-listen.user.js`
+- raw 被墙时代理：`https://gh-proxy.com/https://raw.githubusercontent.com/senko171/dlsite-note-listen/main/userscript/dlsite-note-listen.user.js`
+- [Releases](https://github.com/senko171/dlsite-note-listen/releases) 里每个版本的 `dlsite-note-listen.user.js` 附件
+
+### 更新不到新版本怎么办
+
+先看脚本管理器里该脚本的「更新 URL」：应该是 `github.com/senko171/dlsite-note-listen/releases/latest/download/dlsite-note-listen.user.js`。如果指向 `raw.githubusercontent.com`、某个固定 tag（`@v0.0.1` 这类），或者还是 `cdn.jsdelivr.net/...@latest`，说明装的是早期版本——这几种地址都收不到（或收不全）新版本，用上面的安装链接重装一次即可就地升级。注意上面顶部安装链接用的是固定版本 `releases/download/v0.0.1/...`，那是安装用的、不会变；更新 URL 用 `releases/latest/download/...` 才能收到新版，两者不冲突。
+
+1. 看页面右下角有没有「有新版本 vX.Y.Z」提示：有就点「去更新」，那条链接钉死在版本上，一定能装到。
+2. 没有提示但确定发了新版，在`备注`弹窗里点「检查更新」手动触发一次，会明确告诉你「已是最新版本」还是弹出更新提示。
+3. 再不行，在脚本列表里点「检查更新」，确认更新 URL 是上面那条 `releases/latest/download/...` 地址。
+4. 地址对了但仍提示网络错误：GitHub 的部分下载域在国内可能连不上，这种情况直接用 Releases 里的附件重装。
+
+## 主要功能
+
+- 在作品详情、搜索、分类、收藏夹、购物车和推荐卡上显示`备注`与`试听`双键；不修改原生标题、封面、价格或操作区。详情页双键接在优惠券插件 UI 之后，作为购买区的兄弟节点，绝不挤进原生按钮容器。
+- `备注`按钮点开输入框，写完后保存；按钮上直接显示备注内容（过长自动省略），再次点击可修改。已写备注显示浅蓝底。
+- `试听`按钮一点切换`未试听` / `已试听`，已试听显示浅粉底；取消后恢复原状。
+- 同作品的不同语言版本共享一份备注与试听数据：详情页的语言版本选择器可零请求建立映射；否则通过公开作品信息接口按原作 / 子作品关系识别，失败有 7 天负缓存，避免反复请求。
+- 备注弹窗左下角显示这条记录最后一次保存的本地时间，精确到分钟。
+- `备份 / 恢复`：导出 `.json` 文件，换设备后导入；恢复采用合并策略，不会覆盖较新的记录。支持中文输入法，输入框内 `Ctrl/⌘ + Enter` 快速保存。
+- 列表与收藏夹的卡片按键按触屏 / 窄屏自动改为一键一行；排行板块和评论区不加按键，避免干扰原页面。
+- 多个标签页打开 DLsite 时数据实时同步；支持 `GM_registerMenuCommand` 的脚本管理器额外提供「备份 / 恢复」菜单入口。
+- 自动更新提醒：每 6 小时检查新版本（GitHub API + jsDelivr 双源取较新值），有新版右下角弹可关闭提示，点「去更新」直达安装链接；`备注`弹窗里也能手动检查。
+
+## 使用要点
+
+### 浏览与筛选
+
+普通作品卡在标签区之后显示`备注`与`试听`；手机端与窄卡自动收缩或换行。购物车页按键插在 `cart_list_item_inner` 之后，不改动购物车原生结构。收藏夹页（wishlist）与列表页一致。
+
+### 详情页
+
+双键作为购买区的兄弟节点，排在优惠券插件 UI（史低卡、可用优惠券、比较语言版本按钮）之后；不会进入原生按键容器，也不会被站点样式隐藏。没有优惠券插件时自动退回到价格容器 / 语言选择区之前。
+
+### 备份与恢复
+
+在任意`备注`弹窗里点`备份 / 恢复`：
+
+- `下载文件`：导出 `.json` 备份，文件名带日期，例如 `dlsite-note-listen-2026-11-21.json`。
+- `从文件恢复`：选中备份文件后按记录时间合并，较新的记录胜出。
+- 换设备流程：旧设备导出 → 把文件传到新设备（微信 / 网盘）→ 装脚本 → 从文件恢复。
+
+数据只存在本机浏览器 `localStorage` 里，清理浏览器数据会丢失，请定期导出备份。
+
+## 数据与安全边界
+
+- 公开作品信息请求不带登录 Cookie；脚本不读取账号、优惠券、购物车或已购清单。
+- 提醒：本脚本只记录你自己写的备注和试听状态，不上传、不联网同步。
+- 语言家族识别使用 DLsite 公开接口，失败时写入 7 天负缓存；不访问第三方 AI / 翻译服务。
+- 不自动购买、不加购物车、不套券、不切换语言版本。
+- 所有备注与试听状态以本机为准；恢复备份是合并而非覆盖。
+
+## 文档
+
+- [完整功能与规则](docs/FEATURES.md)
+- [开发、测试与发布](docs/DEVELOPMENT.md)
+
+## 快速验证
+
+需要 Node.js 20 或更新版本：
+
+```bash
+node --check userscript/dlsite-note-listen.user.js
+git diff --check
+```
+
+仓库发布目标为 `main` 分支；安装链接指向 `v0.0.1` 的 Release 附件，更新地址指向 `releases/latest/download/...`。
