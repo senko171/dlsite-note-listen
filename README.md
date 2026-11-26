@@ -10,7 +10,7 @@
 
 **[安装 DLsite 备注 & 试听 v0.0.1](https://cdn.jsdelivr.net/gh/senko171/dlsite-note-listen@v0.0.1/userscript/dlsite-note-listen.user.js)**&#8203;
 
-需要浏览器装有 Tampermonkey 或 Violentmonkey 插件，如Via这种支持 `.user.js` 的手机浏览器。目前仅支持安卓，可直接打开上面这条安装链接。
+需要浏览器装有 Tampermonkey 或 Violentmonkey 插件，如Via这种支持 `.user.js` 的手机浏览器。目前支持安卓和iOS，可直接打开上面这条安装链接。
 
 ## 主要功能
 
